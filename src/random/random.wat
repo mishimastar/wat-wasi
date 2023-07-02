@@ -1,6 +1,6 @@
 (module
     (import "wasi_snapshot_preview1" "random_get"
-        (func $wasi_get_random (param (;buf;) i32) (param (;len;) i32) (result (;pointer;) i32))
+        (func $wasi_get_random (param (;pointer;) i32) (param (;len;) i32) (result (;zero???;) i32))
     )
     ;; 0          8b i64 system clock value
     ;; 16         8b i64 system clock resolution
