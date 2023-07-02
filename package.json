@@ -1,0 +1,40 @@
+{
+    "name": "wat-wasi",
+    "version": "0.1.0",
+    "description": "examples of using wasi via wat and nodejs",
+    "main": "main.ts",
+    "scripts": {
+        "clean": "rimraf {tsconfig.tsbuildinfo,built}",
+        "pret": "prettier --write .",
+        "lint": "eslint .",
+        "compile": "tsc -p .",
+        "asm": "wat2wasm ./src/clock/clock.wat -o ./src/clock/clock.wasm && wat2wasm ./src/random/random.wat -o ./src/random/random.wasm",
+        "test": "node --test",
+        "start": "npm run compile && npm run asm && node --experimental-wasi-unstable-preview1 ./built/main.js "
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/mishimastar/wat-wasi.git"
+    },
+    "keywords": [
+        "webassembly",
+        "wasi",
+        "nodejs",
+        "typescript"
+    ],
+    "author": "mishimastar",
+    "license": "MIT",
+    "devDependencies": {
+        "@types/node": "^18.6.3",
+        "@typescript-eslint/eslint-plugin": "^5.31.0",
+        "@typescript-eslint/parser": "^5.31.0",
+        "prettier": "^2.7.1"
+    },
+    "dependencies": {
+        "typescript": "^4.7.4"
+    },
+    "bugs": {
+        "url": "https://github.com/mishimastar/wat-wasi/issues"
+    },
+    "homepage": "https://github.com/mishimastar/wat-wasi#readme"
+}
