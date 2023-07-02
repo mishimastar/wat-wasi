@@ -6,7 +6,7 @@ export const memdump = (mem: WebAssembly.Memory, start: number, len: number, asS
         if ((index + 1) % 16 === 0) {
             if (asString)
                 for (let j = index - 15; j <= index; j++)
-                    process.stdout.write(` ${view[j] !== 0 ? String.fromCharCode(view[j]!) || ' ' : '□'}`);
+                    process.stdout.write(` ${view[j]! > 32 ? String.fromCharCode(view[j]!) || ' ' : '□'}`);
             if (asNum) for (let j = index - 15; j <= index; j++) process.stdout.write(` ${view[j]}`);
 
             console.log();
