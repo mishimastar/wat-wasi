@@ -4,7 +4,7 @@ import { CreateWASI } from '../wasi-wrapper';
 
 type Exported = {
     memory: WebAssembly.Memory;
-    /** returns pointer to i64 nanos in memory */
+    /** returns zero, may be void is better for performance */
     getRandom: (pointer: number, len: number) => number;
 };
 
