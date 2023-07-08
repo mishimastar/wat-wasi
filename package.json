@@ -8,7 +8,7 @@
         "pret": "prettier --write .",
         "lint": "eslint .",
         "compile": "tsc -p .",
-        "asm": "wat2wasm ./src/clock/clock.wat -o ./src/clock/clock.wasm && wat2wasm ./src/random/random.wat -o ./src/random/random.wasm && wat2wasm ./src/args/args.wat -o ./src/args/args.wasm && wat2wasm ./src/env/env.wat -o ./src/env/env.wasm",
+        "asm": "wat2wasm ./src/clock/clock.wat -o ./src/clock/clock.wasm && wat2wasm ./src/random/random.wat -o ./src/random/random.wasm && wat2wasm ./src/args/args.wat -o ./src/args/args.wasm && wat2wasm ./src/env/env.wat -o ./src/env/env.wasm && wat2wasm ./src/fd/fd.wat -o ./src/fd/fd.wasm",
         "test": "node --test",
         "start": "npm run compile && npm run asm && node --experimental-wasi-unstable-preview1 ./built/main.js "
     },

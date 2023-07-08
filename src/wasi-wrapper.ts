@@ -5,6 +5,7 @@ export type WASIExemplair = WASI & { getImportObject: () => WebAssembly.Imports 
 export type ExtendedWASIOptions = WASIOptions & {
     version: 'unstable' | 'preview1';
 };
+export type StatusCode = number;
 
 export const CreateWASI = (options?: ExtendedWASIOptions): WASIExemplair => new WASI(options) as WASIExemplair;
 
