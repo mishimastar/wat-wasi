@@ -38,13 +38,13 @@ I write down knowledge in the form of primitive work with functions in this repo
 | fd_prestat_get          |        :x:         |                                                                        |
 | fd_prestat_dir_name     |        :x:         |                                                                        |
 | fd_pwrite               |        :x:         |                                                                        |
-| fd_read                 |        :x:         |                                                                        |
+| fd_read                 | :heavy_check_mark: |   [Folder](https://github.com/mishimastar/wat-wasi/tree/main/src/fd)   |
 | fd_readdir              |        :x:         |                                                                        |
 | fd_renumber             |        :x:         |                                                                        |
 | fd_seek                 |        :x:         |                                                                        |
 | fd_sync                 |        :x:         |                                                                        |
 | fd_tell                 |        :x:         |                                                                        |
-| fd_write                |        :x:         |                                                                        |
+| fd_write                | :heavy_check_mark: |   [Folder](https://github.com/mishimastar/wat-wasi/tree/main/src/fd)   |
 | path_create_directory   |        :x:         |                                                                        |
 | path_filestat_get       |        :x:         |                                                                        |
 | path_filestat_set_times |        :x:         |                                                                        |
