@@ -5,10 +5,17 @@ import { CreateWASI } from '../wasi-wrapper';
 type Exported = {
     memory: WebAssembly.Memory;
     /** returns pointer to i64 nanos in memory */
-    getTimeNanos: (clock_id: number, precision: BigInt) => BigInt;
-    getTimeResolution: (clock_id: number) => BigInt;
+    getTimeNanos: (clock_id: ClockID, precision: BigInt) => BigInt;
+    getTimeResolution: (clock_id: ClockID) => BigInt;
     gen1: () => void;
 };
+
+enum ClockID {
+    REALTIME = 0,
+    MONOTONIC = 1,
+    PROCESS_CPUTIME = 2,
+    THREAD_CPUTIME = 3
+}
 
 export const GetClockWASI = async () => {
     const wasi = CreateWASI({ version: 'preview1' });
@@ -22,14 +29,20 @@ export const GetClockWASI = async () => {
 
 export const Clock = async () => {
     const wasm = await GetClockWASI();
-    console.log('clock_id', 0, wasm.getTimeResolution(0), '// nanos from 1970-01-01 00:00:00.000000000');
-    console.log('clock_id', 1, wasm.getTimeResolution(1), '// nanos from system start');
-    console.log('clock_id', 2, wasm.getTimeResolution(2), '// nanos from process start');
-    console.log('clock_id', 3, wasm.getTimeResolution(3), '// nanos from thread start RETURNS INCORRECT VALUE');
-    console.log('clock_id', 0, wasm.getTimeNanos(0, BigInt(1)), '// nanos from 1970-01-01 00:00:00.000000000');
-    console.log('clock_id', 1, wasm.getTimeNanos(1, BigInt(1)), '// nanos from system start');
-    console.log('clock_id', 2, wasm.getTimeNanos(2, BigInt(1)), '// nanos from process start');
-    console.log('clock_id', 3, wasm.getTimeNanos(3, BigInt(1)), '// nanos from thread start');
+    const logTime = (id: ClockID, precision: number, msg: string) => {
+        console.log('clock_id:', id, ' res:', wasm.getTimeNanos(id, BigInt(precision)), ' ||', msg);
+    };
+    const logRes = (id: ClockID, msg: string) => {
+        console.log('clock_id:', id, ' res:', wasm.getTimeResolution(id), ' ||', msg);
+    };
+    logRes(ClockID.REALTIME, 'nanos from 1970-01-01 00:00:00.000000000');
+    logRes(ClockID.MONOTONIC, 'nanos from system start');
+    logRes(ClockID.PROCESS_CPUTIME, 'nanos spent for process');
+    logRes(ClockID.THREAD_CPUTIME, 'nanos spent for thread');
+    logTime(ClockID.REALTIME, 1, 'nanos from 1970-01-01 00:00:00.000000000');
+    logTime(ClockID.MONOTONIC, 1, 'nanos from system start');
+    logTime(ClockID.PROCESS_CPUTIME, 1, 'nanos spent for process');
+    logTime(ClockID.THREAD_CPUTIME, 1, 'nanos spent for thread');
 
     wasm.gen1();
     memdump(wasm.memory, 0, 128, true);
